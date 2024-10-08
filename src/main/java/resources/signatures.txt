@@ -1,0 +1,3 @@
+malware.exe
+virus.doc
+trojan.bat
