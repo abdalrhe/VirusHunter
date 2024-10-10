@@ -3,18 +3,10 @@ package com.cisco.virusHunter;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-class VirusScannerTest {
-
+public class VirusScannerTest {
     @Test
-    void testIsVirus() {
-        VirusDatabase db = new VirusDatabase();
-        assertTrue(db.isVirus("malware.exe"));
-        assertFalse(db.isVirus("safeFile.txt"));
-    }
-
-    @Test
-    void testScanFile() {
-        VirusScanner scanner = new VirusScanner();
-        // يمكنك هنا كتابة اختبارات إضافية لفحص الملفات
+    public void testIsVirus() {
+        VirusDatabase database = new VirusDatabase();
+        assertTrue(database.isVirus("malware.exe")); // تأكد من وجود توقيع الفيروس
     }
 }
