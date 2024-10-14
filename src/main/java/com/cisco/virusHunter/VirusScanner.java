@@ -59,7 +59,7 @@ public class VirusScanner {
             }
         }
     }
-
+    
     private void scanFile(File file) {
         try {
             String fileHash = calculateSHA256(file);
@@ -114,7 +114,7 @@ public class VirusScanner {
 
     public void cancelScan() {
         isCancelled = true;
-        updateUI("Scan cancelled by user.");
+        updateUI("Scan cancelled .");
     }
 
     public void fixViruses() {

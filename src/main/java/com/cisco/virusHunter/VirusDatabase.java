@@ -9,9 +9,11 @@ import java.util.Set;
 
 public class VirusDatabase {
     private Set<String> virusHashes;
+    private int virusCount;  // عداد الفيروسات
 
     public VirusDatabase() {
         this.virusHashes = new HashSet<>();
+        this.virusCount = 0;  // تهيئة العداد إلى 0
         loadSignatures();
     }
 
@@ -20,7 +22,7 @@ public class VirusDatabase {
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line;
             while ((line = br.readLine()) != null) {
-                virusHashes.add(line);
+                virusHashes.add(line.toLowerCase());  // إضافة التواقيع
             }
         } catch (IOException e) {
             System.err.println("Error loading signatures: " + e.getMessage());
@@ -28,23 +30,22 @@ public class VirusDatabase {
     }
 
     public boolean isVirusHash(String hash) {
-        return virusHashes.contains(hash.toLowerCase());
-    }
-
-    public int getHashCount() {
-        return virusHashes.size();
+        boolean isVirus = virusHashes.contains(hash.toLowerCase());
+        if (isVirus) {
+            incrementVirusCount();  // زيادة العداد إذا تم اكتشاف فيروس
+        }
+        return isVirus;
     }
 
     public void incrementVirusCount() {
-        // implement virus count increment logic
+        virusCount++;  // زيادة العداد
     }
 
     public int getVirusCount() {
-        // implement virus count getter logic
-        return 0;
+        return virusCount;  // استرجاع العداد الحالي
     }
 
     public void resetVirusCount() {
-        // implement virus count reset logic
+        virusCount = 0;  // إعادة العداد إلى 0
     }
 }
