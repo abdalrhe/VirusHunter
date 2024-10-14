@@ -1,47 +1,50 @@
 package com.cisco.virusHunter;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashSet;
+import java.util.Set;
 
 public class VirusDatabase {
-    private HashSet<String> virusSignatures;
+    private Set<String> virusHashes;
 
-    // Constructor - Loads signatures at initialization
     public VirusDatabase() {
-        virusSignatures = new HashSet<>();
-        loadSignatures(); // Load virus signatures when object is created
+        this.virusHashes = new HashSet<>();
+        loadSignatures();
     }
 
-    // Load signatures from file
     private void loadSignatures() {
-        String filePath = "src/main/resources/signatures.txt";
-        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
-            String signature;
-            while ((signature = br.readLine()) != null) {
-                virusSignatures.add(signature.trim().toLowerCase()); // Add the signature to the set
+        File file = new File("signatures.txt");
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                virusHashes.add(line);
             }
-            System.out.println("Virus signatures loaded successfully.");
         } catch (IOException e) {
-            System.out.println("Error loading virus signatures: " + e.getMessage());
+            System.err.println("Error loading signatures: " + e.getMessage());
         }
     }
 
-    // Reload virus signatures (if needed)
-    public void reloadSignatures() {
-        virusSignatures.clear();
-        loadSignatures();
-        System.out.println("Virus signatures reloaded.");
+    public boolean isVirusHash(String hash) {
+        return virusHashes.contains(hash.toLowerCase());
     }
 
-    // Check if a file name matches a known virus signature
-    public boolean isVirus(String fileName) {
-        return virusSignatures.contains(fileName.toLowerCase());
+    public int getHashCount() {
+        return virusHashes.size();
     }
 
-    // Get the total number of virus signatures
-    public int getSignatureCount() {
-        return virusSignatures.size();
+    public void incrementVirusCount() {
+        // implement virus count increment logic
+    }
+
+    public int getVirusCount() {
+        // implement virus count getter logic
+        return 0;
+    }
+
+    public void resetVirusCount() {
+        // implement virus count reset logic
     }
 }
